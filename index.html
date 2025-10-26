@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- META -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Quiet AI systems for local businesses. We automate follow-up, scheduling, and reporting so you stop losing time and money." />
+
+  <title>Kunek | AI Automation for Local Business</title>
+
+  <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- ICONS -->
+  <link rel="preconnect" href="https://unpkg.com" />
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <!-- STYLE -->
+  <style>
+    :root {
+      --bg-main: #0f172a;        /* deep navy */
+      --bg-section: #111827;     /* slightly lighter navy */
+      --bg-card: #1e2539;        /* card surface */
+      --text-primary: #f8fafc;   /* white-ish */
+      --text-dim: #94a3b8;       /* slate */
+      --accent: #14b8a6;         /* teal */
+      --border-card: rgba(255,255,255,0.07);
+      --radius-lg: 1.25rem;
+      --radius-sm: .5rem;
+      --max-width: 1200px;
+      --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    }
+
+    /* GLOBAL RESETS */
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      margin: 0;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      line-height: 1.5;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    h1,h2,h3,h4,h5,h6 {
+      color: var(--text-primary);
+      line-height: 1.2;
+      font-weight: 600;
+      margin: 0 0 .5em;
+      letter-spacing: -0.04em;
+    }
+    p {
+      color: var(--text-dim);
+      margin: 0 0 1em;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    button {
+      font-family: inherit;
+    }
+
+    /* LAYOUT HELPERS */
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(20,184,166,0.12) 0%, transparent 60%),
+        radial-gradient(circle at 80% 0%, rgba(255,255,255,0.07) 0%, transparent 60%);
+      background-repeat: no-repeat;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 4rem 1.25rem;
+    }
+
+    header.navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.25rem 0;
+      max-width: var(--max-width);
+      margin: 0 auto 2rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: .95rem;
+      letter-spacing: -0.04em;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: radial-gradient(circle at 20% 20%, rgba(20,184,166,0.4) 0%, rgba(20,184,166,0) 60%), #1e293b;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 16px 40px rgba(20,184,166,0.3);
+    }
+    .brand small {
+      display: block;
+      font-weight: 400;
+      color: var(--text-dim);
+      font-size: .7rem;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
+
+    .nav-cta {
+      display: flex;
+      gap: .75rem;
+    }
+    .btn {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      background: var(--accent);
+      color: #0f172a;
+      font-weight: 600;
+      font-size: .9rem;
+      line-height: 1.2;
+      padding: .75rem 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      box-shadow: 0 18px 40px rgba(20,184,166,0.4);
+      transition: box-shadow .15s, transform .15s;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 24px 50px rgba(20,184,166,0.55);
+    }
+    .btn-outline {
+      background: rgba(255,255,255,0.03);
+      color: var(--text-primary);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: none;
+    }
+    .btn-outline:hover {
+      box-shadow: 0 24px 50px rgba(0,0,0,0.6);
+    }
+
+    /* SECTION: HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media(min-width: 768px){
+      .hero {
+        grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+        align-items: center;
+      }
+    }
+
+    .hero-eyebrow {
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(20,184,166,0.07);
+      padding: .4rem .6rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(20,184,166,0.4);
+      width: fit-content;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 2vw + 1.5rem, 2.75rem);
+      margin-bottom: .75rem;
+      font-weight: 600;
+    }
+    .hero p.lead {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      max-width: 32rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+    }
+
+    .hero-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-card);
+      padding: 1.5rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      position: relative;
+    }
+    .hero-card h3 {
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: .5rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(140px,100%),1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .metric-box {
+      background: rgba(255,255,255,0.02);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 1rem;
+    }
+    .metric-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: .35rem;
+      letter-spacing: -0.04em;
+    }
+    .metric-label {
+      font-size: .8rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+      letter-spacing: -0.03em;
+    }
+
+    /* SECTION: PROBLEM & PROOF */
+    .problem-proof {
+      padding-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media(min-width: 768px){
+      .problem-proof {
+        grid-template-columns: minmax(0,1.2fr) minmax(0,.8fr);
+      }
+    }
+    .problem-card,
+    .proof-card {
+      background: var(--bg-section);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-card);
+      padding: 2rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    }
+    .section-label {
+      font-size: .75rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: .5rem;
+      letter-spacing: -0.03em;
+    }
+    .problem-card h2,
+    .proof-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: .75rem;
+      font-weight: 600;
+    }
+    .proof-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(min(140px,100%),1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* SECTION: SERVICES */
+    .services {
+      padding-top: 4rem;
+    }
+    .services-head {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 2rem;
+    }
+    .services-head h2 {
+      font-size: 1.5rem;
+      margin-bottom: .75rem;
+    }
+    .service-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media(min-width: 768px){
+      .service-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .service-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-card);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 220px;
+    }
+    .service-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: rgba(20,184,166,0.07);
+      border: 1px solid rgba(20,184,166,0.4);
+      color: var(--accent);
+      display: grid;
+      place-items: center;
+      margin-bottom: 1rem;
+    }
+    .service-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: .5rem;
+    }
+    .service-card p {
+      font-size: .9rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .service-cta {
+      margin-top: auto;
+      font-size: .8rem;
+      color: var(--accent);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .service-cta i {
+      line-height: 0;
+    }
+
+    /* SECTION: FOUNDER */
+    .founder {
+      padding-top: 4rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media(min-width: 768px){
+      .founder {
+        grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+        align-items: center;
+      }
+    }
+    .founder-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-card);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      padding: 2rem;
+    }
+    .founder-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: .75rem;
+    }
+    .founder-card p {
+      font-size: .95rem;
+      line-height: 1.5;
+    }
+    .founder-bio {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(20,184,166,.6) 0%, rgba(20,184,166,0) 70%), #0f172a;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 16px 40px rgba(20,184,166,0.3);
+      flex-shrink: 0;
+    }
+    .bio-text h4 {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 .25rem;
+      letter-spacing: -0.04em;
+    }
+    .bio-text p {
+      font-size: .8rem;
+      line-height: 1.4;
+      color: var(--text-dim);
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+
+    /* SECTION: CTA STRIPE */
+    .cta-stripe {
+      background: var(--bg-section);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-top: 4rem;
+    }
+    .cta-inner {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem;
+    }
+    .cta-inner h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: .75rem;
+    }
+    .cta-inner p {
+      font-size: .95rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-dim);
+    }
+    .cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .75rem;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 3rem 1.25rem 4rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: .8rem;
+      line-height: 1.4;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .footer-links a {
+      color: var(--text-dim);
+      transition: color .15s;
+    }
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* SMALL UTILITIES */
+    .dim {
+      color: var(--text-dim);
+      font-size: .8rem;
+      line-height: 1.4;
+    }
+    .accent {
+      color: var(--accent);
+    }
+
+  </style>
+</head>
+<body class="page">
+
+  <!-- NAV -->
+  <header class="navbar">
+    <div class="brand">
+      <div class="brand-icon">
+        <i data-feather="cpu" width="16" height="16" style="color:var(--accent);"></i>
+      </div>
+      <div>
+        YOUR COMPANY NAME<br />
+        <small>AI Automation &amp; Insights</small>
+      </div>
+    </div>
+
+    <div class="nav-cta">
+      <a class="btn-outline btn" href="#services">
+        <i data-feather="grid" width="16" height="16"></i>
+        <span>Services</span>
+      </a>
+      <a class="btn" href="mailto:info@kunek.net?subject=AI%20Audit%20Request">
+        <i data-feather="calendar" width="16" height="16"></i>
+        <span>Book Audit</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="container hero" id="hero">
+      <div>
+        <div class="hero-eyebrow">
+          <i data-feather="zap" width="14" height="14"></i>
+          <span>Built for Busy Local Teams</span>
+        </div>
+
+        <h1>We build quiet AI systems that make your business faster — without replacing your people.</h1>
+        <p class="lead">
+          We automate follow-up, scheduling, and reporting for <strong class="accent">real estate agents, dental practices, and service businesses</strong>.
+          That means faster response times, fewer dropped leads, and visibility into your numbers every single day.
+        </p>
+
+        <div class="hero-ctas">
+          <a class="btn" href="#cta">
+            <i data-feather="play-circle" width="16" height="16"></i>
+            <span>See How It Works</span>
+          </a>
+          <a class="btn-outline btn" href="mailto:info@kunek.net?subject=I%20want%20a%20demo">
+            <i data-feather="mail" width="16" height="16"></i>
+            <span>Request Demo</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>
+          <i data-feather="activity" width="16" height="16" style="color:var(--accent);"></i>
+          Live Impact Snapshots
+        </h3>
+        <p class="dim">What our automations do in the first 30 days:</p>
+
+        <div class="hero-metrics">
+          <div class="metric-box">
+            <div class="metric-value">+22 Leads</div>
+            <div class="metric-label">Recovered leads that “went cold” and re-engaged</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-value">-68%</div>
+            <div class="metric-label">Drop in manual texting / calling workload</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-value">3m 12s</div>
+            <div class="metric-label">Avg response time (24/7, no missed inquiry)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM / PROOF -->
+    <section class="container problem-proof">
+      <div class="problem-card">
+        <div class="section-label">The problem</div>
+        <h2>You’re losing money in the gaps between “I’m interested” and “Let’s talk.”</h2>
+        <p>
+          Most small teams waste 20+ hours/week chasing leads, answering the same questions,
+          updating spreadsheets, and sending reminders… manually.
+          That lag kills deals.
+        </p>
+        <p>
+          Our automations answer instantly, follow up politely, keep conversations moving,
+          and surface hot opportunities to you, so you only step in when a human is actually needed.
+        </p>
+      </div>
+
+      <div class="proof-card">
+        <div class="section-label">Why choose US / Kunek</div>
+        <h2>We don’t “sell you AI.” We install outcomes.</h2>
+        <p>
+          Every workflow we deliver ships with real numbers.
+          You’ll see time saved, new revenue captured, and response speed — in plain English — not dashboards you’ll never open.
+        </p>
+
+        <div class="proof-stats">
+          <div class="metric-box">
+            <div class="metric-value">$35K / yr</div>
+            <div class="metric-label">Avg. labor cost impact per client</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-value">24/7</div>
+            <div class="metric-label">Lead response coverage, zero burnout</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-value">30+ teams</div>
+            <div class="metric-label">Using our automations today</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="container services" id="services">
+      <div class="services-head">
+        <div class="section-label">What we automate first</div>
+        <h2>Start with the obvious leaks. Then scale.</h2>
+        <p>
+          We install proven workflows that make you faster immediately.
+          Once those are printing ROI, we layer advanced reporting and custom systems.
+        </p>
+      </div>
+
+      <div class="service-grid">
+
+        <!-- SERVICE 1 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i data-feather="message-circle" width="18" height="18"></i>
+          </div>
+          <h3>Follow-Up Assistant</h3>
+          <p>
+            When a new lead comes in (Facebook, Zillow, website form, etc.),
+            they get an instant, friendly response — even at 11:47pm —
+            and ongoing follow-up until they book a call. No more “I just missed them.”
+          </p>
+          <div class="service-cta">
+            <span>See example conversation</span>
+            <i data-feather="arrow-right" width="16" height="16"></i>
+          </div>
+        </div>
+
+        <!-- SERVICE 2 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i data-feather="calendar" width="18" height="18"></i>
+          </div>
+          <h3>Smart Scheduling</h3>
+          <p>
+            We sync calendars, offer times, confirm appointments,
+            send reminders, and reschedule automatically — without you or your staff doing back-and-forth texts.
+          </p>
+          <div class="service-cta">
+            <span>View booking flow</span>
+            <i data-feather="arrow-right" width="16" height="16"></i>
+          </div>
+        </div>
+
+        <!-- SERVICE 3 -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i data-feather="bar-chart-2" width="18" height="18"></i>
+          </div>
+          <h3>Daily KPI Report</h3>
+          <p>
+            Every morning you get one clean summary: new leads, hot leads,
+            booked calls, closed deals, and where the money is stuck.
+            No spreadsheets. No guessing.
+          </p>
+          <div class="service-cta">
+            <span>See sample report</span>
+            <i data-feather="arrow-right" width="16" height="16"></i>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOUNDER -->
+    <section class="container founder">
+      <div class="founder-card">
+        <div class="section-label">Who you’re working with</div>
+        <h2>“We bring enterprise-level systems to local operators.”</h2>
+        <p>
+          KUNEK brings experience in automation and consultation, with over
+          10 years in technical operations and support.
+          <br><br>
+          Our mission is simple: make high-performance processes
+          accessible to small teams — without hiring extra headcount.
+          We build, we maintain, and we prove ROI in writing.
+        </p>
+
+        <div class="founder-bio">
+          <div class="avatar"></div>
+          <div class="bio-text">
+            <h4>Ernie Benavidez</h4>
+            <p>Founder &amp; Lead Architect<br/>KUNEK</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="problem-card" style="height:100%;">
+          <div class="section-label">How we work together</div>
+          <h2>Step 1: Free 15-Minute Audit Call</h2>
+          <p>
+            You walk us through where time’s being wasted. We estimate the dollar impact in real numbers.
+          </p>
+
+          <h2 style="margin-top:2rem;">Step 2: Fast Install</h2>
+          <p>
+            We deploy your first automation workflow (usually follow-up + scheduling).
+            You see results inside 30 days.
+          </p>
+
+          <h2 style="margin-top:2rem;">Step 3: Ongoing Optimization</h2>
+          <p>
+            We maintain, tune, and expand.
+            You get the benefits — without hiring full-time staff.
+          </p>
+
+          <div style="margin-top:2rem;">
+            <a class="btn" href="mailto:info@kunek.net?subject=Free%2015-min%20AI%20Audit">
+              <i data-feather="phone-call" width="16" height="16"></i>
+              <span>Book My Audit</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA STRIPE -->
+    <section class="cta-stripe" id="cta">
+      <div class="cta-inner">
+        <h2>Ready to stop losing leads and start getting time back?</h2>
+        <p>
+          We’ll show you exactly where AI plugs into your business in under 15 minutes.
+          No fluff. No obligation.
+        </p>
+
+        <div class="cta-buttons">
+          <a class="btn" href="mailto:info@kunek.net?subject=Let's%20talk%20about%20automation">
+            <i data-feather="send" width="16" height="16"></i>
+            <span>Request My Demo</span>
+          </a>
+
+          <a class="btn-outline btn" href="mailto:info@kunek.net?subject=Question%20about%20pricing">
+            <i data-feather="dollar-sign" width="16" height="16"></i>
+            <span>Ask About Pricing</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="#hero">Home</a>
+      <a href="#services">Services</a>
+      <a href="mailto:info@kunek.net">Contact</a>
+      <a href="#">LinkedIn</a>
+    </div>
+    <div>
+      © <span id="year"></span> KUNEK. All rights reserved.
+    </div>
+    <div style="margin-top:.5rem;">
+      <span class="dim">We build and maintain private AI systems for small, high-performing teams.</span>
+    </div>
+  </footer>
+
+  <!-- JS FOR ICONS + YEAR -->
+  <script>
+    feather.replace();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
